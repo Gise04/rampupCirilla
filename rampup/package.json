@@ -2,7 +2,7 @@
   "name": "rampup",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://gisejim04.github.io/rampupCirilla",
+  "homepage": "https://gise04.github.io/rampupCirilla",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
