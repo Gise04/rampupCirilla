@@ -1,0 +1,7 @@
+{
+  "buildCommand": "cd rampup && npm install --legacy-peer-deps && CI=false npm run build",
+  "outputDirectory": "rampup/build",
+  "installCommand": "echo skip",
+  "framework": null,
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
