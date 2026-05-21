@@ -13,6 +13,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Las señales circulares con borde rojo y número indican la velocidad máxima permitida en ese tramo.",
+    image: { type: "speed-sign", value: 50 },
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Las señales triangulares con borde rojo son señales de peligro que advierten de un riesgo próximo.",
+    image: { type: "warning", icon: "exclamation" },
   },
   {
     id: 3,
@@ -36,6 +38,7 @@ export const questions = [
     correct: 2,
     explanation:
       "La señal STOP obliga a detenerse completamente en la línea de stop y ceder el paso a todos los vehículos.",
+    image: { type: "stop-sign" },
   },
   {
     id: 4,
@@ -50,6 +53,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Las señales circulares azules con flecha blanca indican sentido o dirección obligatoria.",
+    image: { type: "obligation", icon: "arrow-right" },
   },
   {
     id: 5,
@@ -64,6 +68,7 @@ export const questions = [
     correct: 1,
     explanation:
       "La señal de 'Ceda el paso' es un triángulo invertido (vértice hacia abajo) con borde rojo.",
+    image: { type: "give-way" },
   },
   // --- VELOCIDADES ---
   {
@@ -74,6 +79,7 @@ export const questions = [
     correct: 3,
     explanation:
       "La velocidad máxima en autopistas y autovías para turismos es de 120 km/h, aunque puede alcanzar 130 km/h cuando el estado de la vía lo permita y se señalice.",
+    image: { type: "speed-sign", value: 120 },
   },
   {
     id: 7,
@@ -83,6 +89,7 @@ export const questions = [
     correct: 2,
     explanation:
       "La velocidad máxima genérica en vías urbanas es de 50 km/h, salvo señalización diferente.",
+    image: { type: "speed-sign", value: 50 },
   },
   {
     id: 8,
@@ -92,6 +99,7 @@ export const questions = [
     correct: 1,
     explanation:
       "La velocidad máxima en carreteras convencionales para turismos es de 90 km/h.",
+    image: { type: "speed-sign", value: 90 },
   },
   {
     id: 9,
@@ -101,6 +109,7 @@ export const questions = [
     correct: 1,
     explanation:
       "En carreteras de dos carriles con arcén pavimentado de al menos 1,5 m, la velocidad máxima puede llegar a 100 km/h.",
+    image: { type: "speed-sign", value: 100 },
   },
   {
     id: 10,
@@ -110,6 +119,7 @@ export const questions = [
     correct: 0,
     explanation:
       "La velocidad mínima en autopistas es de 60 km/h. Por debajo de ella se considera conducción anormalmente lenta.",
+    image: { type: "scenario", scene: "highway" },
   },
   // --- ALCOHOLEMIA Y DROGAS ---
   {
@@ -120,6 +130,7 @@ export const questions = [
     correct: 1,
     explanation:
       "La tasa máxima de alcohol en sangre para conductores en general es de 0,5 g/l (0,25 mg/l en aire espirado).",
+    image: { type: "scenario", scene: "alcohol" },
   },
   {
     id: 12,
@@ -129,6 +140,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Los conductores con menos de 2 años de antigüedad del permiso tienen una tasa máxima de 0,3 g/l (0,15 mg/l en aire espirado).",
+    image: { type: "scenario", scene: "alcohol" },
   },
   {
     id: 13,
@@ -143,6 +155,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Negarse a la prueba de alcoholemia es una infracción muy grave que lleva aparejada la retirada del permiso y puede implicar responsabilidad penal.",
+    image: { type: "scenario", scene: "alcohol" },
   },
   // --- PRIORIDAD DE PASO ---
   {
@@ -158,6 +171,7 @@ export const questions = [
     correct: 1,
     explanation:
       "En intersecciones no señalizadas, tiene prioridad el vehículo que viene por la derecha (regla de la derecha).",
+    image: { type: "warning", icon: "intersection" },
   },
   {
     id: 15,
@@ -172,6 +186,7 @@ export const questions = [
     correct: 1,
     explanation:
       "En las rotondas tiene preferencia quien ya circula dentro de ellas. El que entra debe ceder el paso.",
+    image: { type: "scenario", scene: "roundabout" },
   },
   {
     id: 16,
@@ -186,6 +201,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Los vehículos de emergencias (policía, bomberos, ambulancias) en servicio urgente con señales acústicas y/o luminosas tienen prioridad de paso.",
+    image: { type: "priority-road" },
   },
   // --- DISTANCIAS DE SEGURIDAD ---
   {
@@ -201,6 +217,7 @@ export const questions = [
     correct: 1,
     explanation:
       "La distancia de seguridad debe ser suficiente para poder detenerse en caso de frenada brusca del vehículo que va delante, sin colisionar con él.",
+    image: { type: "scenario", scene: "distance" },
   },
   {
     id: 18,
@@ -215,6 +232,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Los vehículos de más de 3.500 kg o que arrastren un remolque deben mantener en autopistas y autovías una distancia mínima de 50 metros.",
+    image: { type: "scenario", scene: "distance" },
   },
   // --- ADELANTAMIENTOS ---
   {
@@ -230,6 +248,7 @@ export const questions = [
     correct: 2,
     explanation:
       "En España, el adelantamiento por la derecha está prohibido salvo en casos muy específicos como cuando el vehículo de delante va a girar a la izquierda o en vías con varios carriles en el mismo sentido.",
+    image: { type: "scenario", scene: "overtaking" },
   },
   {
     id: 20,
@@ -244,6 +263,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Está prohibido adelantar en curvas y cambios de rasante con visibilidad reducida, intersecciones, pasos a nivel, pasos para peatones y otros lugares peligrosos.",
+    image: { type: "scenario", scene: "overtaking" },
   },
   // --- ALUMBRADO ---
   {
@@ -259,6 +279,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Las luces de cruce son obligatorias en túneles, de noche, en condiciones de visibilidad reducida y cuando la iluminación ambiental sea insuficiente.",
+    image: { type: "scenario", scene: "lights" },
   },
   {
     id: 22,
@@ -273,6 +294,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Las luces de carretera se usan en vías interurbanas con visibilidad reducida cuando no haya vehículos en sentido contrario ni próximos por delante.",
+    image: { type: "scenario", scene: "lights" },
   },
   {
     id: 23,
@@ -287,6 +309,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Las luces de niebla traseras solo deben usarse cuando la visibilidad sea inferior a 50 metros para no deslumbrar a otros conductores.",
+    image: { type: "scenario", scene: "lights" },
   },
   // --- DOCUMENTACIÓN ---
   {
@@ -302,6 +325,7 @@ export const questions = [
     correct: 1,
     explanation:
       "El conductor debe llevar: permiso de conducción, permiso de circulación del vehículo y el justificante del seguro obligatorio.",
+    image: { type: "scenario", scene: "document" },
   },
   {
     id: 25,
@@ -311,6 +335,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Los turismos de más de 10 años deben pasar la ITV anualmente (cada año).",
+    image: { type: "scenario", scene: "document" },
   },
   // --- SEGURIDAD VIAL ---
   {
@@ -326,6 +351,7 @@ export const questions = [
     correct: 1,
     explanation:
       "El cinturón de seguridad es obligatorio en todos los asientos, tanto en vías urbanas como interurbanas.",
+    image: { type: "scenario", scene: "seatbelt" },
   },
   {
     id: 27,
@@ -340,6 +366,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Los menores de 12 años o que midan menos de 1,35 m deben ir en un sistema de retención infantil homologado adaptado a su talla y peso.",
+    image: { type: "scenario", scene: "child-seat" },
   },
   {
     id: 28,
@@ -354,6 +381,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Los sistemas de retención infantil orientados hacia atrás solo pueden instalarse en el asiento delantero si se desactiva el airbag frontal.",
+    image: { type: "scenario", scene: "child-seat" },
   },
   // --- USO DEL TELÉFONO ---
   {
@@ -369,6 +397,7 @@ export const questions = [
     correct: 0,
     explanation:
       "El uso del teléfono con manos libres está permitido, aunque se recomienda evitarlo. Lo que está prohibido es sujetar el teléfono con la mano mientras se conduce.",
+    image: { type: "scenario", scene: "phone" },
   },
   {
     id: 30,
@@ -378,6 +407,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Usar el teléfono móvil sostenido con la mano es una infracción grave que conlleva multa y pérdida de puntos del carné.",
+    image: { type: "scenario", scene: "phone" },
   },
   // --- SEMÁFOROS ---
   {
@@ -393,6 +423,7 @@ export const questions = [
     correct: 2,
     explanation:
       "La luz ámbar obliga a detenerse si se puede hacer sin peligro. Solo se puede pasar si la detención implicara un riesgo mayor.",
+    image: { type: "warning", icon: "exclamation" },
   },
   {
     id: 32,
@@ -407,6 +438,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Una flecha verde indica que solo puede circular en la dirección que señala la flecha, independientemente del resto de indicaciones del semáforo.",
+    image: { type: "obligation", icon: "arrow-right" },
   },
   // --- ESTACIONAMIENTO ---
   {
@@ -417,6 +449,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Está prohibido estacionar a menos de 5 metros de un cruce o intersección.",
+    image: { type: "prohibition", icon: "no-parking" },
   },
   {
     id: 34,
@@ -431,6 +464,7 @@ export const questions = [
     correct: 2,
     explanation:
       "El estacionamiento en doble fila está prohibido. Las luces de emergencia no lo justifican, aunque en parada momentánea puede tolerarse en circunstancias muy concretas.",
+    image: { type: "prohibition", icon: "no-parking" },
   },
   // --- AUTOPISTAS ---
   {
@@ -446,6 +480,7 @@ export const questions = [
     correct: 2,
     explanation:
       "En autopistas y autovías está totalmente prohibido circular en sentido contrario, hacer cambios de sentido y dar marcha atrás.",
+    image: { type: "scenario", scene: "highway" },
   },
   {
     id: 36,
@@ -460,6 +495,7 @@ export const questions = [
     correct: 1,
     explanation:
       "En caso de avería en autopista, el conductor debe situarse fuera de la calzada, al otro lado del guardarraíl o en lugar seguro, y usar el chaleco reflectante.",
+    image: { type: "scenario", scene: "highway" },
   },
   // --- SEÑALES VERTICALES ---
   {
@@ -475,6 +511,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Las señales de prohibición son circulares con borde rojo y fondo blanco (excepto el Stop que es octogonal rojo).",
+    image: { type: "prohibition", icon: "no-entry" },
   },
   {
     id: 38,
@@ -489,6 +526,7 @@ export const questions = [
     correct: 2,
     explanation:
       "La señal de 'Calzada con prioridad' es romboidal (en forma de diamante) con fondo amarillo y borde blanco.",
+    image: { type: "priority-road" },
   },
   // --- MARCAS VIALES ---
   {
@@ -504,6 +542,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Una línea continua en el centro de la calzada prohíbe cruzarla o circular sobre ella para realizar adelantamientos.",
+    image: { type: "scenario", scene: "overtaking" },
   },
   {
     id: 40,
@@ -518,6 +557,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Una línea discontinua en el centro permite cruzarla para adelantar cuando las condiciones de visibilidad y tráfico lo permitan.",
+    image: { type: "scenario", scene: "overtaking" },
   },
   // --- PRIMEROS AUXILIOS ---
   {
@@ -533,6 +573,7 @@ export const questions = [
     correct: 1,
     explanation:
       "El protocolo básico de actuación en accidentes es PAS: Proteger la zona, Avisar a los servicios de emergencia y Socorrer a los heridos.",
+    image: { type: "scenario", scene: "firstaid" },
   },
   {
     id: 42,
@@ -547,6 +588,7 @@ export const questions = [
     correct: 2,
     explanation:
       "No se debe mover a un herido, salvo que su vida corra peligro inminente (incendio, explosión), ya que puede haber lesiones en la columna vertebral.",
+    image: { type: "scenario", scene: "firstaid" },
   },
   // --- CASCO ---
   {
@@ -562,6 +604,7 @@ export const questions = [
     correct: 2,
     explanation:
       "El uso del casco es obligatorio tanto para el conductor como para el acompañante en ciclomotores y motocicletas, en cualquier tipo de vía.",
+    image: { type: "scenario", scene: "seatbelt" },
   },
   // --- ANIMALES ---
   {
@@ -577,6 +620,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Los animales deben ir debidamente sujetos o separados para no interferir con el conductor ni convertirse en un peligro en caso de frenada.",
+    image: { type: "scenario", scene: "seatbelt" },
   },
   // --- FACTORES DE RIESGO ---
   {
@@ -592,6 +636,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Los factores humanos, como las distracciones, el exceso de velocidad y el consumo de alcohol y drogas, son la principal causa de accidentes en España.",
+    image: { type: "scenario", scene: "phone" },
   },
   {
     id: 46,
@@ -606,6 +651,7 @@ export const questions = [
     correct: 1,
     explanation:
       "La fatiga aumenta el tiempo de reacción, reduce la atención y la capacidad de toma de decisiones, aumentando enormemente el riesgo de accidente.",
+    image: { type: "scenario", scene: "lights" },
   },
   // --- LLUVIA Y CONDICIONES ADVERSAS ---
   {
@@ -621,6 +667,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Con lluvia, la adherencia se reduce y la distancia de frenado aumenta, por lo que se debe reducir la velocidad y aumentar la distancia de seguridad.",
+    image: { type: "scenario", scene: "rain" },
   },
   {
     id: 48,
@@ -635,6 +682,7 @@ export const questions = [
     correct: 1,
     explanation:
       "El aquaplaning ocurre cuando una capa de agua se interpone entre el neumático y el asfalto, provocando la pérdida total de adherencia y control del vehículo.",
+    image: { type: "scenario", scene: "rain" },
   },
   // --- PUNTOS DEL CARNÉ ---
   {
@@ -645,6 +693,7 @@ export const questions = [
     correct: 1,
     explanation:
       "Los conductores noveles empiezan con 8 puntos y pueden llegar a los 12 tras un periodo sin infracciones graves.",
+    image: { type: "scenario", scene: "points" },
   },
   {
     id: 50,
@@ -654,6 +703,7 @@ export const questions = [
     correct: 2,
     explanation:
       "Un conductor con el permiso consolidado (más de 3 años sin infracciones graves) dispone de 12 puntos.",
+    image: { type: "scenario", scene: "points" },
   },
   // --- ZONAS DE BAJA EMISIÓN ---
   {
@@ -669,6 +719,7 @@ export const questions = [
     correct: 0,
     explanation:
       "La etiqueta 'CERO' identifica vehículos eléctricos de batería, de pila de combustible o eléctricos de autonomía extendida.",
+    image: { type: "obligation", icon: "arrow-right" },
   },
   {
     id: 52,
@@ -678,6 +729,7 @@ export const questions = [
     correct: 0,
     explanation:
       "En zonas de coexistencia y áreas peatonales con acceso de vehículos, la velocidad máxima es de 10 km/h.",
+    image: { type: "speed-sign", value: 10 },
   },
 ];
 

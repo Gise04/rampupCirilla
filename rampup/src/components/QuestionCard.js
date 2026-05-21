@@ -1,31 +1,21 @@
-function QuestionCard({
-  question,
-  questionNumber,
-  totalQuestions,
-  selectedAnswer,
-  onAnswer,
-  showExplanation,
-  mode,
-}) {
+import QuestionImage from "./QuestionImage";
+
+function QuestionCard({ question, selectedAnswer, onAnswer, showCorrect }) {
   const answered = selectedAnswer !== null;
   const isCorrect = selectedAnswer === question.correct;
 
   function getOptionClass(index) {
     if (!answered) return "option";
-    if (index === question.correct) return "option correct";
-    if (index === selectedAnswer && !isCorrect) return "option wrong";
-    return "option disabled";
+    if (index === question.correct) return "option selected-correct";
+    if (index === selectedAnswer && !isCorrect) return "option selected-wrong";
+    return "option option-disabled";
   }
 
   return (
     <div className="question-card">
-      <div className="question-header">
-        <span className="category-badge">{question.category}</span>
-        <span className="question-counter">
-          {questionNumber} / {totalQuestions}
-        </span>
-      </div>
+      <QuestionImage image={question.image} />
 
+      <div className="question-category-badge">{question.category}</div>
       <p className="question-text">{question.question}</p>
 
       <div className="options">
@@ -36,32 +26,19 @@ function QuestionCard({
             onClick={() => !answered && onAnswer(index)}
             disabled={answered}
           >
-            <span className="option-letter">
+            <span className={`option-letter ${answered && index === question.correct ? "option-letter-correct" : ""} ${answered && index === selectedAnswer && !isCorrect ? "option-letter-wrong" : ""}`}>
               {["A", "B", "C", "D"][index]}
             </span>
             <span className="option-text">{option}</span>
             {answered && index === question.correct && (
-              <span className="option-icon">✓</span>
+              <span className="option-result-icon correct-icon">✓</span>
             )}
             {answered && index === selectedAnswer && !isCorrect && (
-              <span className="option-icon">✗</span>
+              <span className="option-result-icon wrong-icon">✗</span>
             )}
           </button>
         ))}
       </div>
-
-      {answered && mode === "practice" && (
-        <div className={`explanation ${isCorrect ? "explanation-correct" : "explanation-wrong"}`}>
-          <strong>{isCorrect ? "Correcto" : "Incorrecto"}</strong>
-          <p>{question.explanation}</p>
-        </div>
-      )}
-
-      {answered && mode === "exam" && (
-        <div className={`answer-feedback ${isCorrect ? "feedback-correct" : "feedback-wrong"}`}>
-          {isCorrect ? "Respuesta correcta" : "Respuesta incorrecta"}
-        </div>
-      )}
     </div>
   );
 }

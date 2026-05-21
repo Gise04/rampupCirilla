@@ -1,10 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import "./App.css";
 import StartScreen from "./components/StartScreen";
 import QuestionCard from "./components/QuestionCard";
 import ProgressBar from "./components/ProgressBar";
 import Results from "./components/Results";
-import { questions, TOTAL_QUESTIONS_EXAM, MAX_ERRORS_ALLOWED } from "./data/questions";
+import FeedbackPanel from "./components/FeedbackPanel";
+import { questions, TOTAL_QUESTIONS_EXAM } from "./data/questions";
+
+const MAX_HEARTS = 5;
+const EXAM_TIME = 30 * 60;
 
 function shuffle(arr) {
   const a = [...arr];
@@ -15,142 +19,221 @@ function shuffle(arr) {
   return a;
 }
 
-const EXAM_TIME = 30 * 60;
+function getStreak() {
+  const streak = parseInt(localStorage.getItem("dgt_streak") || "0", 10);
+  const lastPlayed = localStorage.getItem("dgt_last_played");
+  if (!lastPlayed) return streak;
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+  const last = new Date(lastPlayed).toDateString();
+  if (last === today || last === yesterday) return streak;
+  return 0;
+}
+
+function updateStreak() {
+  const today = new Date().toDateString();
+  const lastPlayed = localStorage.getItem("dgt_last_played");
+  const last = lastPlayed ? new Date(lastPlayed).toDateString() : null;
+  let streak = parseInt(localStorage.getItem("dgt_streak") || "0", 10);
+  if (last === today) {
+    // already played today, no change
+  } else if (last === new Date(Date.now() - 86400000).toDateString()) {
+    streak += 1;
+  } else {
+    streak = 1;
+  }
+  localStorage.setItem("dgt_streak", String(streak));
+  localStorage.setItem("dgt_last_played", new Date().toISOString());
+  return streak;
+}
+
+function getTotalXP() {
+  return parseInt(localStorage.getItem("dgt_total_xp") || "0", 10);
+}
+
+function addXP(amount) {
+  const current = getTotalXP();
+  const next = current + amount;
+  localStorage.setItem("dgt_total_xp", String(next));
+  return next;
+}
 
 function App() {
   const [screen, setScreen] = useState("start");
   const [mode, setMode] = useState("exam");
   const [examQuestions, setExamQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState([]);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [errors, setErrors] = useState(0);
+  const [feedbackVisible, setFeedbackVisible] = useState(false);
+  const [isCorrect, setIsCorrect] = useState(false);
+  const [hearts, setHearts] = useState(MAX_HEARTS);
+  const [prevHearts, setPrevHearts] = useState(MAX_HEARTS);
+  const [answers, setAnswers] = useState([]);
+  const [sessionXP, setSessionXP] = useState(0);
   const [timeLeft, setTimeLeft] = useState(EXAM_TIME);
-  const [startTime, setStartTime] = useState(null);
   const [finished, setFinished] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+  const [streak, setStreak] = useState(getStreak);
+  const [totalXP, setTotalXP] = useState(getTotalXP);
 
-  const finishExam = useCallback(() => {
+  const finishedRef = useRef(false);
+
+  const finishExam = useCallback((currentAnswers, currentHearts, currentSessionXP) => {
+    if (finishedRef.current) return;
+    finishedRef.current = true;
     setFinished(true);
+    // Save streak and XP
+    const newStreak = updateStreak();
+    const newTotal = addXP(currentSessionXP || 0);
+    setStreak(newStreak);
+    setTotalXP(newTotal);
     setScreen("results");
   }, []);
 
+  // Timer
   useEffect(() => {
-    if (screen !== "quiz" || finished) return;
+    if (screen !== "quiz" || finished || mode !== "exam") return;
     const interval = setInterval(() => {
       setTimeLeft((t) => {
         if (t <= 1) {
           clearInterval(interval);
-          finishExam();
+          setAnswers((ans) => {
+            setSessionXP((xp) => {
+              finishExam(ans, hearts, xp);
+              return xp;
+            });
+            return ans;
+          });
           return 0;
         }
         return t - 1;
       });
     }, 1000);
     return () => clearInterval(interval);
-  }, [screen, finished, finishExam]);
+  }, [screen, finished, mode, finishExam, hearts]);
 
   function startQuiz() {
     const selected = shuffle(questions).slice(0, TOTAL_QUESTIONS_EXAM);
+    finishedRef.current = false;
     setExamQuestions(selected);
     setCurrentIndex(0);
     setAnswers([]);
     setSelectedAnswer(null);
-    setErrors(0);
+    setFeedbackVisible(false);
+    setHearts(MAX_HEARTS);
+    setPrevHearts(MAX_HEARTS);
+    setSessionXP(0);
     setTimeLeft(EXAM_TIME);
-    setStartTime(Date.now());
     setFinished(false);
+    setStartTime(Date.now());
     setScreen("quiz");
   }
 
   function handleAnswer(answerIndex) {
+    if (selectedAnswer !== null || feedbackVisible) return;
     const q = examQuestions[currentIndex];
-    const isCorrect = answerIndex === q.correct;
-    const newErrors = isCorrect ? errors : errors + 1;
+    const correct = answerIndex === q.correct;
+
+    const xpGain = correct ? (mode === "exam" ? 15 : 10) : 0;
+    const newSessionXP = sessionXP + xpGain;
+    setSessionXP(newSessionXP);
+
+    let newHearts = hearts;
+    if (!correct && mode === "exam") {
+      setPrevHearts(hearts);
+      newHearts = hearts - 1;
+      setHearts(newHearts);
+    }
+
+    const newAnswer = { selected: answerIndex, isCorrect: correct };
+    const newAnswers = [...answers, newAnswer];
+    setAnswers(newAnswers);
 
     setSelectedAnswer(answerIndex);
-    setErrors(newErrors);
-    setAnswers((prev) => [...prev, { selected: answerIndex, isCorrect }]);
+    setIsCorrect(correct);
+    setFeedbackVisible(true);
 
-    if (mode === "exam" && newErrors > MAX_ERRORS_ALLOWED) {
-      setTimeout(() => finishExam(), 1200);
-      return;
-    }
-
-    if (currentIndex + 1 >= TOTAL_QUESTIONS_EXAM) {
-      setTimeout(() => finishExam(), 1200);
-    }
+    // If hearts gone, finish will happen on continue
   }
 
-  function handleNext() {
-    if (currentIndex + 1 >= TOTAL_QUESTIONS_EXAM) {
-      finishExam();
+  function handleContinue() {
+    setFeedbackVisible(false);
+
+    const isLast = currentIndex + 1 >= TOTAL_QUESTIONS_EXAM;
+
+    if (mode === "exam" && hearts <= 0) {
+      finishExam(answers, 0, sessionXP);
       return;
     }
+
+    if (isLast) {
+      finishExam(answers, hearts, sessionXP);
+      return;
+    }
+
     setCurrentIndex((i) => i + 1);
     setSelectedAnswer(null);
   }
 
   const timeUsed = startTime ? Math.round((Date.now() - startTime) / 1000) : 0;
 
+  function handleExit() {
+    setScreen("start");
+    setFinished(false);
+    finishedRef.current = false;
+  }
+
   return (
     <div className="app">
-      <header className="app-header">
-        <div className="header-inner">
-          <span className="header-brand">Teórico DGT</span>
-          {screen === "quiz" && (
-            <button className="btn-abort" onClick={() => setScreen("start")}>
-              Abandonar
-            </button>
-          )}
-        </div>
-      </header>
+      {screen === "start" && (
+        <StartScreen
+          onStart={startQuiz}
+          mode={mode}
+          onModeChange={setMode}
+          streak={streak}
+          totalXP={totalXP}
+        />
+      )}
 
-      <main className="app-main">
-        {screen === "start" && (
-          <StartScreen
-            onStart={startQuiz}
+      {screen === "quiz" && examQuestions.length > 0 && (
+        <div className="quiz-wrapper">
+          <ProgressBar
+            current={currentIndex + 1}
+            total={TOTAL_QUESTIONS_EXAM}
+            hearts={hearts}
+            maxHearts={MAX_HEARTS}
+            prevHearts={prevHearts}
+            timeLeft={timeLeft}
             mode={mode}
-            onModeChange={setMode}
+            onExit={handleExit}
           />
-        )}
-
-        {screen === "quiz" && examQuestions.length > 0 && (
-          <div className="quiz-wrapper">
-            <ProgressBar
-              current={currentIndex + 1}
-              total={TOTAL_QUESTIONS_EXAM}
-              errors={errors}
-              timeLeft={timeLeft}
-            />
+          <div className="quiz-content">
             <QuestionCard
               question={examQuestions[currentIndex]}
-              questionNumber={currentIndex + 1}
-              totalQuestions={TOTAL_QUESTIONS_EXAM}
               selectedAnswer={selectedAnswer}
               onAnswer={handleAnswer}
-              mode={mode}
             />
-            {selectedAnswer !== null && (
-              <button className="btn-next" onClick={handleNext}>
-                {currentIndex + 1 < TOTAL_QUESTIONS_EXAM
-                  ? "Siguiente pregunta →"
-                  : "Ver resultados"}
-              </button>
-            )}
           </div>
-        )}
-
-        {screen === "results" && (
-          <Results
-            answers={answers}
-            questions={examQuestions}
-            onRetry={startQuiz}
-            onHome={() => setScreen("start")}
-            timeUsed={timeUsed}
-            mode={mode}
+          <FeedbackPanel
+            isCorrect={isCorrect}
+            explanation={examQuestions[currentIndex]?.explanation}
+            onContinue={handleContinue}
+            visible={feedbackVisible}
           />
-        )}
-      </main>
+        </div>
+      )}
+
+      {screen === "results" && (
+        <Results
+          answers={answers}
+          questions={examQuestions}
+          onRetry={startQuiz}
+          onHome={() => setScreen("start")}
+          timeUsed={timeUsed}
+          mode={mode}
+          sessionXP={sessionXP}
+        />
+      )}
     </div>
   );
 }
