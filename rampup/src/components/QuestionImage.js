@@ -8,6 +8,8 @@ const SIGN_URLS = {
   "priority-road":           WIKI + "Spain_road_sign_P-1.svg",
   "no-entry":                WIKI + "Spain_road_sign_R-101.svg",
   "no-parking":              WIKI + "Spain_road_sign_R-307.svg",
+  "no-stop-no-park":         WIKI + "Spain_road_sign_R-308.svg",
+  "end-restrictions":        WIKI + "Spain_road_sign_R-500.svg",
   "warning-exclamation":     WIKI + "Spain_road_sign_P-2.svg",
   "warning-intersection":    WIKI + "Spain_road_sign_P-16.svg",
   "obligation-arrow-right":  WIKI + "Spain_road_sign_R-400b.svg",
@@ -394,6 +396,183 @@ function ScenarioHighway() {
   );
 }
 
+function NoStopNoParkSVG() {
+  return (
+    <svg viewBox="0 0 200 200" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="88" fill="white" stroke="#CC0000" strokeWidth="14" />
+      <line x1="38" y1="38" x2="162" y2="162" stroke="#CC0000" strokeWidth="18" strokeLinecap="round" />
+      <line x1="162" y1="38" x2="38" y2="162" stroke="#CC0000" strokeWidth="18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function EndRestrictionsSVG() {
+  return (
+    <svg viewBox="0 0 200 200" width="140" height="140" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="88" fill="white" stroke="#888" strokeWidth="10" />
+      <line x1="30" y1="30" x2="170" y2="170" stroke="#888" strokeWidth="14" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function ScenarioSnow() {
+  return (
+    <svg viewBox="0 0 280 180" width="280" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="180" fill="#E3F2FD" rx="12" />
+      <rect x="0" y="110" width="280" height="70" fill="#CFD8DC" />
+      <rect x="0" y="105" width="280" height="10" fill="#B0BEC5" />
+      {/* Snowflakes */}
+      {[30,70,130,180,230,50,110,160,210,255].map((x, i) => (
+        <g key={i} transform={`translate(${x},${(i % 4) * 22 + 12})`}>
+          <line x1="0" y1="-8" x2="0" y2="8" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="-8" y1="0" x2="8" y2="0" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="-5" y1="-5" x2="5" y2="5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+          <line x1="5" y1="-5" x2="-5" y2="5" stroke="white" strokeWidth="2" strokeLinecap="round" />
+        </g>
+      ))}
+      {/* Car */}
+      <g transform="translate(140,88)">
+        <rect x="-55" y="12" width="110" height="32" rx="8" fill="#1565C0" />
+        <rect x="-40" y="1" width="80" height="24" rx="6" fill="#90CAF9" />
+        <rect x="-33" y="4" width="28" height="16" rx="2" fill="#E3F2FD" opacity="0.8" />
+        <rect x="3" y="4" width="28" height="16" rx="2" fill="#E3F2FD" opacity="0.8" />
+        <circle cx="-35" cy="44" r="10" fill="#212121" /><circle cx="-35" cy="44" r="6" fill="#616161" />
+        <circle cx="35" cy="44" r="10" fill="#212121" /><circle cx="35" cy="44" r="6" fill="#616161" />
+        {/* Chains on wheels */}
+        <circle cx="-35" cy="44" r="10" fill="none" stroke="#FFC107" strokeWidth="2" strokeDasharray="4,3" />
+        <circle cx="35" cy="44" r="10" fill="none" stroke="#FFC107" strokeWidth="2" strokeDasharray="4,3" />
+      </g>
+      {/* Distance x10 label */}
+      <rect x="5" y="120" width="110" height="24" rx="6" fill="#E53935" opacity="0.9" />
+      <text x="60" y="136" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="12" fontWeight="900" fill="white">FRENADO x10</text>
+    </svg>
+  );
+}
+
+function ScenarioFog() {
+  return (
+    <svg viewBox="0 0 280 180" width="280" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="180" fill="#ECEFF1" rx="12" />
+      {/* Fog layers */}
+      <ellipse cx="60" cy="60" rx="80" ry="25" fill="white" opacity="0.7" />
+      <ellipse cx="200" cy="45" rx="90" ry="22" fill="white" opacity="0.6" />
+      <ellipse cx="140" cy="80" rx="120" ry="20" fill="white" opacity="0.65" />
+      <ellipse cx="80" cy="100" rx="100" ry="18" fill="white" opacity="0.5" />
+      <rect x="0" y="120" width="280" height="60" fill="#90A4AE" opacity="0.5" />
+      {/* Faint car barely visible */}
+      <g transform="translate(140,92)" opacity="0.45">
+        <rect x="-55" y="12" width="110" height="32" rx="8" fill="#455A64" />
+        <rect x="-40" y="1" width="80" height="24" rx="6" fill="#78909C" />
+        <circle cx="-35" cy="44" r="10" fill="#212121" /><circle cx="-35" cy="44" r="6" fill="#424242" />
+        <circle cx="35" cy="44" r="10" fill="#212121" /><circle cx="35" cy="44" r="6" fill="#424242" />
+      </g>
+      {/* Fog lights glow */}
+      <ellipse cx="85" cy="104" rx="22" ry="8" fill="#FF6F00" opacity="0.55" />
+      <ellipse cx="195" cy="104" rx="22" ry="8" fill="#FF6F00" opacity="0.55" />
+      {/* Label */}
+      <rect x="5" y="148" width="130" height="22" rx="6" fill="#37474F" opacity="0.9" />
+      <text x="70" y="163" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="bold" fill="white">NIEBLA &lt;50m</text>
+    </svg>
+  );
+}
+
+function ScenarioFatigue() {
+  return (
+    <svg viewBox="0 0 280 180" width="280" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="180" fill="#1A237E" rx="12" />
+      <rect x="0" y="130" width="280" height="50" fill="#263238" />
+      {/* Driver silhouette with droopy eyes */}
+      <circle cx="90" cy="80" r="28" fill="#5D4037" />
+      {/* Droopy/closed eyes */}
+      <path d="M78,76 Q84,84 90,76" fill="none" stroke="#3E2723" strokeWidth="3" strokeLinecap="round" />
+      <path d="M90,76 Q96,84 102,76" fill="none" stroke="#3E2723" strokeWidth="3" strokeLinecap="round" />
+      {/* Eyelids half closed */}
+      <rect x="76" y="72" width="16" height="7" rx="3" fill="#5D4037" />
+      <rect x="90" y="72" width="16" height="7" rx="3" fill="#5D4037" />
+      {/* ZZZ symbols */}
+      <text x="130" y="50" fontFamily="Arial Black, sans-serif" fontSize="22" fontWeight="900" fill="#90CAF9" opacity="0.9">Z</text>
+      <text x="158" y="38" fontFamily="Arial Black, sans-serif" fontSize="17" fontWeight="900" fill="#90CAF9" opacity="0.7">Z</text>
+      <text x="180" y="28" fontFamily="Arial Black, sans-serif" fontSize="13" fontWeight="900" fill="#90CAF9" opacity="0.5">Z</text>
+      {/* Steering wheel */}
+      <circle cx="90" cy="118" r="18" fill="none" stroke="#8D6E63" strokeWidth="5" />
+      <line x1="90" y1="100" x2="90" y2="136" stroke="#8D6E63" strokeWidth="4" />
+      <line x1="72" y1="118" x2="108" y2="118" stroke="#8D6E63" strokeWidth="4" />
+      {/* Warning box */}
+      <rect x="160" y="90" width="110" height="52" rx="8" fill="#E53935" opacity="0.9" />
+      <text x="215" y="112" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="11" fontWeight="900" fill="white">¡MICROSUEÑO!</text>
+      <text x="215" y="130" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="10" fill="white">Detente y descansa</text>
+    </svg>
+  );
+}
+
+function ScenarioTunnel() {
+  return (
+    <svg viewBox="0 0 280 180" width="280" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="180" fill="#212121" rx="12" />
+      {/* Tunnel walls perspective */}
+      <polygon points="0,0 280,0 220,180 60,180" fill="#37474F" />
+      <polygon points="40,0 240,0 200,180 80,180" fill="#455A64" />
+      {/* Road surface */}
+      <polygon points="80,180 200,180 240,100 40,100" fill="#546E7A" />
+      {/* Center line dashes */}
+      <polygon points="136,180 144,180 142,150 138,150" fill="white" opacity="0.7" />
+      <polygon points="137,140 143,140 141,115 139,115" fill="white" opacity="0.5" />
+      {/* Tunnel arch top gradient */}
+      <ellipse cx="140" cy="0" rx="100" ry="30" fill="#263238" />
+      {/* Car with headlights */}
+      <g transform="translate(140,138)">
+        <rect x="-40" y="-14" width="80" height="26" rx="7" fill="#37474F" />
+        <rect x="-28" y="-24" width="56" height="18" rx="5" fill="#546E7A" />
+        <rect x="-24" y="-22" width="22" height="13" rx="2" fill="#B0BEC5" opacity="0.7" />
+        <rect x="2" y="-22" width="22" height="13" rx="2" fill="#B0BEC5" opacity="0.7" />
+        <circle cx="-28" cy="12" r="9" fill="#212121" /><circle cx="-28" cy="12" r="5" fill="#616161" />
+        <circle cx="28" cy="12" r="9" fill="#212121" /><circle cx="28" cy="12" r="5" fill="#616161" />
+        {/* Headlight beams */}
+        <polygon points="-40,-8 -80,-30 -80,10 -40,8" fill="#FFF9C4" opacity="0.35" />
+        <polygon points="40,-8 80,-30 80,10 40,8" fill="#FFF9C4" opacity="0.35" />
+      </g>
+      {/* Lights along tunnel ceiling */}
+      {[60,100,140,180,220].map((x, i) => (
+        <ellipse key={i} cx={x} cy="18" rx="8" ry="4" fill="#FFF176" opacity={0.7 - i * 0.1} />
+      ))}
+      <rect x="5" y="155" width="120" height="20" rx="5" fill="#1565C0" opacity="0.9" />
+      <text x="65" y="169" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="11" fontWeight="bold" fill="white">LUCES CORTAS</text>
+    </svg>
+  );
+}
+
+function ScenarioMechanics() {
+  return (
+    <svg viewBox="0 0 280 180" width="280" height="180" xmlns="http://www.w3.org/2000/svg">
+      <rect width="280" height="180" fill="#ECEFF1" rx="12" />
+      {/* Tire cross-section */}
+      <circle cx="75" cy="95" r="55" fill="#212121" />
+      <circle cx="75" cy="95" r="40" fill="#424242" />
+      <circle cx="75" cy="95" r="28" fill="#757575" />
+      {/* Tread pattern lines on tire */}
+      {[-3,-1,1,3].map((offset, i) => (
+        <line key={i} x1={75 + offset * 10 - 20} y1="42" x2={75 + offset * 10 - 20} y2="148" stroke="#212121" strokeWidth="3" opacity="0.7" />
+      ))}
+      {/* Tread depth indicator */}
+      <rect x="20" y="148" width="110" height="16" rx="4" fill="#E53935" opacity="0.85" />
+      <text x="75" y="160" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="10" fontWeight="bold" fill="white">mín. 1,6 mm dibujo</text>
+      {/* ABS diagram */}
+      <rect x="155" y="25" width="115" height="70" rx="8" fill="#1565C0" />
+      <text x="212" y="48" textAnchor="middle" fontFamily="Arial Black, sans-serif" fontSize="14" fontWeight="900" fill="white">ABS</text>
+      <text x="212" y="65" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="9" fill="#90CAF9">Evita bloqueo</text>
+      <text x="212" y="80" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="9" fill="#90CAF9">Frena a FONDO</text>
+      {/* Brake disc */}
+      <circle cx="205" cy="130" r="35" fill="none" stroke="#FF5722" strokeWidth="8" />
+      <circle cx="205" cy="130" r="14" fill="#FF5722" opacity="0.5" />
+      {[0,60,120,180,240,300].map((angle, i) => {
+        const rad = angle * Math.PI / 180;
+        return <line key={i} x1={205 + 14 * Math.cos(rad)} y1={130 + 14 * Math.sin(rad)} x2={205 + 35 * Math.cos(rad)} y2={130 + 35 * Math.sin(rad)} stroke="#FF5722" strokeWidth="3" />;
+      })}
+      <text x="205" y="168" textAnchor="middle" fontFamily="Arial, sans-serif" fontSize="9" fill="#37474F">DISCO DE FRENO</text>
+    </svg>
+  );
+}
+
 // --- Map sign types to SVG fallbacks ---
 function getSignFallback(image) {
   const { type, value, icon, scene } = image;
@@ -404,6 +583,8 @@ function getSignFallback(image) {
   if (type === "obligation") return <ObligationSVG />;
   if (type === "priority-road") return <PriorityRoadSVG />;
   if (type === "prohibition") return <ProhibitionSVG icon={icon} />;
+  if (type === "no-stop-no-park") return <NoStopNoParkSVG />;
+  if (type === "end-restrictions") return <EndRestrictionsSVG />;
   if (type === "scenario") {
     if (scene === "alcohol") return <ScenarioAlcohol />;
     if (scene === "distance") return <ScenarioDistance />;
@@ -418,6 +599,11 @@ function getSignFallback(image) {
     if (scene === "child-seat") return <ScenarioChildSeat />;
     if (scene === "points") return <ScenarioPoints />;
     if (scene === "highway") return <ScenarioHighway />;
+    if (scene === "snow") return <ScenarioSnow />;
+    if (scene === "fog") return <ScenarioFog />;
+    if (scene === "fatigue") return <ScenarioFatigue />;
+    if (scene === "tunnel") return <ScenarioTunnel />;
+    if (scene === "mechanics") return <ScenarioMechanics />;
   }
   return null;
 }
@@ -433,6 +619,8 @@ function getWikiUrl(image) {
   if (type === "warning") return SIGN_URLS[`warning-${icon}`] || SIGN_URLS["warning-exclamation"];
   if (type === "obligation") return SIGN_URLS[`obligation-${icon}`] || SIGN_URLS["obligation-arrow-right"];
   if (type === "prohibition") return SIGN_URLS[icon === "no-entry" ? "no-entry" : "no-parking"];
+  if (type === "no-stop-no-park") return SIGN_URLS["no-stop-no-park"];
+  if (type === "end-restrictions") return SIGN_URLS["end-restrictions"];
   return null;
 }
 
