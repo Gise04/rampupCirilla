@@ -354,14 +354,14 @@ export const questions = [
     category: "Señales de tráfico",
     question: "¿Qué señal prohíbe tanto la parada como el estacionamiento?",
     options: [
-      "R-307 (estacionamiento prohibido)",
-      "R-308 (parada y estacionamiento prohibido)",
+      "R-307 (parada y estacionamiento prohibido)",
+      "R-308 (estacionamiento prohibido)",
       "R-500 (fin de restricciones)",
       "R-101 (prohibido el paso)",
     ],
-    correct: 1,
+    correct: 0,
     explanation:
-      "La R-308 prohíbe tanto la parada como el estacionamiento. La R-307 solo prohíbe el estacionamiento.",
+      "La R-307 prohíbe tanto la parada como el estacionamiento. La R-308 solo prohíbe el estacionamiento (la parada breve sí está permitida con R-308).",
     image: { type: "no-stop-no-park" },
   },
   {
