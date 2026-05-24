@@ -545,12 +545,12 @@ export const questions = [
   {
     id: 41,
     category: "Velocidades",
-    question: "¿Cuál es la velocidad máxima en zonas de coexistencia (plataforma única calzada+acera)?",
+    question: "¿Cuál es la velocidad máxima en calles de plataforma única (calzada y acera al mismo nivel)?",
     options: ["10 km/h", "20 km/h", "30 km/h", "50 km/h"],
     correct: 1,
     explanation:
-      "En vías de plataforma única compartida (calzada + acera) la velocidad máxima es de 20 km/h.",
-    image: { type: "speed-sign", value: 10 },
+      "En vías urbanas de plataforma única (calzada y acera al mismo nivel) la velocidad máxima es de 20 km/h, desde la reforma urbana de 2021.",
+    image: { type: "speed-sign", value: 20 },
   },
   {
     id: 42,
@@ -1431,12 +1431,12 @@ export const questions = [
   {
     id: 103,
     category: "Velocidades",
-    question: "¿Cuál es la velocidad máxima en zona de coexistencia (peatones y vehículos en plataforma única)?",
-    options: ["10 km/h", "20 km/h", "30 km/h", "50 km/h"],
-    correct: 0,
+    question: "¿Qué distancia de seguridad mínima deben mantener en carretera los vehículos de más de 3.500 kg y los conjuntos de más de 10 metros?",
+    options: ["25 metros", "50 metros", "100 metros", "150 metros"],
+    correct: 1,
     explanation:
-      "En zonas de coexistencia donde peatones y vehículos comparten el mismo espacio, la velocidad máxima es de 10 km/h.",
-    image: { type: "speed-sign", value: 10 },
+      "Los vehículos de más de 3.500 kg y los conjuntos de más de 10 metros deben guardar una distancia de seguridad obligatoria de al menos 50 metros respecto al vehículo que les precede en vías fuera de poblado.",
+    image: { type: "scenario", scene: "highway" },
   },
   {
     id: 104,
